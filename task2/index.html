@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orivaxa Cafe | Premium Coffee Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-brown: #2C1B18;
+            --accent-gold: #D4A373;
+            --cream: #F1E3D3;
+            --soft-black: #1a1a1a;
+            --white: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            color: var(--primary-brown);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .container {
+            width: 100%;
+            padding: 0 80px;
+        }
+        header {
+            background-color: rgba(44, 27, 24, 0.98);
+            height: 90px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 50px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--cream);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: var(--transition);
+        }
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1606509036992-4399d5c5afe4?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8MyUyMGNvZmZlZSUyMGhvbGRpbmclMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D=') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding-top: 80px;
+        }
+        .hero-content h1 { font-size: 4.5rem; }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background-color: var(--accent-gold);
+            color: var(--white);
+            border-radius: 5px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--accent-gold);
+            cursor: pointer;
+        }
+        .btn:active { transform: scale(0.95); }
+
+        .section-padding { padding: 100px 0; }
+
+        .section-title { text-align: center; margin-bottom: 60px; }
+
+        .coffee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .coffee-card {
+            background: var(--cream);
+            border-radius: 15px;
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 30px;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        .coffee-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .coffee-card:active {
+            transform: scale(0.98);
+            border-color: var(--accent-gold);
+            background: #fff;
+        }
+        .coffee-card img { height: 280px; width: 100%; object-fit: cover; }
+
+        .price { color: var(--accent-gold); font-weight: 700; margin-top: 10px; }
+
+        .about-section {
+            background-color: var(--primary-brown);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .about-wrapper { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
+
+        .about-image { flex: 1; min-width: 350px; }
+
+        .about-image img { width: 100%; height: auto; border-radius: 15px; box-shadow: 20px 20px 0px var(--accent-gold); }
+
+        .about-text { flex: 1; min-width: 350px; }
+
+        .about-text h2 { font-size: 3rem; color: var(--accent-gold); margin-bottom: 25px; }
+        .about-text p {
+    margin-bottom: 20px; 
+    line-height: 1.6;   
+    font-size: 1.1rem;   
+}
+
+.about-text p:last-child {
+    margin-bottom: 0;
+}
+        .contact {
+            background-color: var(--cream);
+            padding-bottom: 40px;
+        }
+
+        .contact-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+        .contact-info {
+            flex: 1;
+            min-width: 320px;
+        }
+        .info-box {
+            background: rgba(255,255,255,0.6);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+        .info-box:hover {
+            background: #fff;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .info-box:active {
+            background: var(--accent-gold);
+            color: white;
+            transform: scale(1.02);
+            border-color: var(--primary-brown);
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 320px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: var(--transition);
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 10px rgba(212, 163, 115, 0.3);
+        }
+
+        .integrated-footer {
+            border-top: 1px solid rgba(44, 27, 24, 0.1);
+            padding-top: 40px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .footer-nav a {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--primary-brown);
+            transition: var(--transition);
+        }
+
+        .footer-nav a:hover { color: var(--accent-gold); }
+
+        .copyright { font-size: 0.85rem; opacity: 0.7; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .contact-wrapper { flex-direction: column; }
+            .hero-content h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">ORIVAXA CAFE</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>ORIVAXA CAFE</h1>
+            <p>Experience the Art of Perfect Brewing in Every Sip.</p>
+            <a href="#menu" class="btn">Explore Menu</a>
+        </div>
+    </section>
+
+    <section class="section-padding container" id="menu">
+        <div class="section-title">
+            <h2>Our Signature Blends</h2>
+            <p>Click a blend to select your favorite.</p>
+        </div>
+        <div class="coffee-grid">
+            <div class="coffee-card">
+                <img src="https://media.istockphoto.com/id/505168330/photo/cup-of-cafe-latte-with-coffee-beans-and-cinnamon-sticks.webp?a=1&b=1&s=612x612&w=0&k=20&c=VmcwnH3izQJORooYe0etG_-x60PHlV28anoOwfkaU5A=" alt="Cappuccino">
+                <h3>Cappuccino</h3>
+                <p class="price">$4.50</p>
+            </div>
+            <div class="coffee-card">
+                <img src="https://media.istockphoto.com/id/174684628/photo/pouring-fresh-coffee.webp?a=1&b=1&s=612x612&w=0&k=20&c=YWKvch5Oa4xbedrlA7jXu3YecnK4kdKtwtSo03cRuAs=" alt="Black Coffee">
+                <h3>Black Coffee</h3>
+                <p class="price">$6.00</p>
+            </div>
+            <div class="coffee-card">
+                <img src="https://images.unsplash.com/photo-1592663527359-cf6642f54cff?w=700&auto=format&fit=crop&q=60" alt="Brew">
+                <h3>Cold Brew</h3>
+                <p class="price">$7.50</p>
+            </div>
+            <div class="coffee-card">
+                <img src="https://images.unsplash.com/photo-1530373239216-42518e6b4063?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8TW9jaGF8ZW58MHx8MHx8fDA%3D" alt="Mocha">
+                <h3>Mocha Latte</h3>
+                <p class="price">$6.24</p>
+            </div>
+            <div class="coffee-card">
+                <img src="https://images.unsplash.com/photo-1637178035222-a08f2d4dd1a3?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Q2FyYW1lbCUyMEZyYXBwdWNjaW5vfGVufDB8fDB8fHww=" alt="Caramel">
+                 <h3>Caramel Frappuccino</h3>
+                  <p class="price">$5.75</p>
+          </div>
+          <div class="coffee-card">
+               <img src="https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8RXNwcmVzc298ZW58MHx8MHx8fDA%3D=" alt="espresso">
+                <h3>Espresso</h3>
+                <p class="price">$4.00</p>
+          </div>
+          <div class="coffee-card">
+               <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8QW1lcmljYW5vfGVufDB8fDB8fHww=" alt="American">
+               <h3>Americano</h3>
+                <p class="price">$5.00</p>
+          </div>
+           <div class="coffee-card">
+                <img src="https://images.unsplash.com/photo-1564919152540-a4c47d028cab?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8UmlzdHJldHRvfGVufDB8fDB8fHww=" alt="ristretto">
+                <h3>Ristretto</h3>
+                <p class="price">$7.00</p>
+           </div>
+    </section>
+
+    <section class="about-section section-padding" id="about">
+        <div class="container">
+            <div class="about-wrapper">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&auto=format&fit=crop&q=80" alt="Orivaxa Coffee Beans">
+                </div>
+                <div class="about-text">
+                    <h2>Our Heritage</h2>
+                    <p>At Orivaxa Cafe, our journey begins in the lush green plantations where every bean is hand-picked at the peak of its ripeness.</p>
+                    <p>Our master roasters treat every batch as a masterpiece, unlocking deep chocolate notes and floral aromas that define our signature taste. We are committed to sustainability and direct-trade practices.</p>
+                    <p>Whether you need a quiet space to work or a warm corner to catch up with friends, Orivaxa provides the perfect sanctuary for coffee lovers who refuse to settle for anything but the best.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h1>Get In Touch</h1>
+                <p>Click details to highlight or fill the form.</p>
+            </div>
+
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Contact Details</h3>
+                    <p style="margin-bottom: 25px;">Feel free to contact us for bulk orders, event hosting, or general queries.</p>
+                    <div class="info-box">
+                        <span>📧</span> <strong>Email:</strong> support@orivaxa.com
+                    </div>
+                    <div class="info-box">
+                        <span>📞</span> <strong>Phone:</strong> +91 91331 44228
+                    </div>
+                    <div class="info-box">
+                        <span>📍</span> <strong>Location:</strong> Bhimavaram,India
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea rows="5" placeholder="msg" required></textarea>
+                        <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="integrated-footer">
+                <ul class="footer-nav">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <p class="copyright">© 2026 Orivaxa Cafe. All rights reserved. Crafted for Coffee Lovers.</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
