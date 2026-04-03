@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator</title>
+<style>
+  body {
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#dfe9f3,#ffffff);
+    font-family:Segoe UI;
+  }
+
+  .calculator {
+    background:#ecf0f3;
+    padding:20px;
+    border-radius:20px;
+    width:320px;
+    box-shadow:10px 10px 20px #babecc,-10px -10px 20px #ffffff;
+  }
+
+  .display {
+    height:60px;
+    border-radius:10px;
+    background:#ecf0f3;
+    box-shadow: inset 5px 5px 10px #babecc, inset -5px -5px 10px #fff;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    padding:10px;
+    font-size:24px;
+    margin-bottom:15px;
+    overflow-x:auto;
+  }
+
+  .buttons {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+  }
+
+  button {
+    height:55px;
+    border:none;
+    border-radius:12px;
+    background:#ecf0f3;
+    box-shadow:5px 5px 10px #babecc,-5px -5px 10px #fff;
+    font-size:18px;
+    cursor:pointer;
+  }
+
+  button:active {
+    box-shadow: inset 5px 5px 10px #babecc, inset -5px -5px 10px #fff;
+  }
+
+  .operator { color:#e67e22; font-weight:bold; }
+  .equal {
+    background:#2ecc71;
+    color:white;
+    grid-row:span 2;
+  }
+  .zero { grid-column:span 2; }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+  <div id="display" class="display">0</div>
+
+  <div class="buttons">
+    <button onclick="clearDisplay()">AC</button>
+    <button onclick="deleteLast()">DEL</button>
+    <button onclick="appendOperator('%')">%</button>
+    <button class="operator" onclick="appendOperator('/')">÷</button>
+
+    <button onclick="appendNumber('7')">7</button>
+    <button onclick="appendNumber('8')">8</button>
+    <button onclick="appendNumber('9')">9</button>
+    <button class="operator" onclick="appendOperator('*')">×</button>
+
+    <button onclick="appendNumber('4')">4</button>
+    <button onclick="appendNumber('5')">5</button>
+    <button onclick="appendNumber('6')">6</button>
+    <button class="operator" onclick="appendOperator('-')">−</button>
+
+    <button onclick="appendNumber('1')">1</button>
+    <button onclick="appendNumber('2')">2</button>
+    <button onclick="appendNumber('3')">3</button>
+    <button class="operator" onclick="appendOperator('+')">+</button>
+
+    <button class="zero" onclick="appendNumber('0')">0</button>
+    <button onclick="appendNumber('.')">.</button>
+    <button class="equal" onclick="calculate()">=</button>
+  </div>
+</div>
+
+<script>
+let display = document.getElementById("display");
+let expression = "";
+
+function appendNumber(num){
+  expression += num;
+  display.innerText = expression;
+}
+
+function appendOperator(op){
+  if(expression === "") return;
+
+  let lastChar = expression.slice(-1);
+  if(["+","-","*","/","%"].includes(lastChar)){
+    expression = expression.slice(0,-1);
+  }
+
+  expression += op;
+  display.innerText = expression;
+}
+
+function calculate(){
+  try{
+    let result = evaluate(expression);
+    display.innerText = result; // ONLY result (phone style)
+    expression = result.toString();
+  }catch{
+    display.innerText = "Error";
+    expression = "";
+  }
+}
+
+function evaluate(expr){
+  let tokens = expr.match(/\d+\.?\d*|[+\-*/%]/g);
+  let stack = [parseFloat(tokens[0])];
+
+  for(let i=1;i<tokens.length;i+=2){
+    let op = tokens[i];
+    let num = parseFloat(tokens[i+1]);
+
+    if(op === '+') stack.push(num);
+    else if(op === '-') stack.push(-num);
+    else if(op === '*') stack.push(stack.pop() * num);
+    else if(op === '/') {
+      let prev = stack.pop();
+      if (num === 0) return "Error";
+      stack.push(prev / num);
+    }
+    else if(op === '%') stack.push((stack.pop()/100)*num);
+  }
+
+  return stack.reduce((a,b)=>a+b);
+}
+
+function clearDisplay(){
+  expression = "";
+  display.innerText = "0";
+}
+
+function deleteLast(){
+  expression = expression.slice(0,-1);
+  display.innerText = expression || "0";
+}
+
+// keyboard support
+
+document.addEventListener("keydown", function(e){
+  if(!isNaN(e.key) || e.key === ".") appendNumber(e.key);
+  else if(["+","-","*","/","%"].includes(e.key)) appendOperator(e.key);
+  else if(e.key === "Enter") calculate();
+  else if(e.key === "Backspace") deleteLast();
+  else if(e.key === "Escape") clearDisplay();
+});
+
+</script>
+
+</body>
+</html>
